@@ -3,6 +3,7 @@
 import csv
 import json
 import os
+import sys
 import time
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
@@ -82,6 +83,20 @@ def test_form_roundtrip(win):
     cfg.run.model, cfg.run.mode, cfg.run.seed, cfg.run.max_records = "css_phy", "accelerated", 99, None
     win.form.set_config(cfg)
     assert win.form.get_config() == cfg
+
+
+def test_none_choices_do_not_leak_none_refcount(win):
+    # PySide6 (Linux, Python 3.11) boş QComboBox verisini döndürürken None'ın referans sayısını
+    # azaltıyordu; birikince yorumlayıcı kapanışta "none_dealloc" ile çöküyordu.
+    cfg = SimConfig()
+    cfg.lora.ldro = None
+    cfg.channel.fading = None
+    win.form.set_config(cfg)
+    before = sys.getrefcount(None)
+    for _ in range(200):
+        win.form.set_config(cfg)
+        assert win.form.get_config().lora.ldro is None
+    assert sys.getrefcount(None) >= before - 50
 
 
 def test_invalid_input_shows_error_and_does_not_start(win, dialogs):
