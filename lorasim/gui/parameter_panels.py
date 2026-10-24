@@ -19,10 +19,6 @@ from PySide6.QtWidgets import (
 from lorasim.config import ConfigError, DeviceSpec, SimConfig
 from lorasim.lora import sx1276_config as hw
 
-# QComboBox öğe verisi olarak None saklanmaz: PySide6 (6.12, Linux, Python 3.11) boş veriyi
-# döndürürken None'ın referans sayısını fazladan azaltıyor ve yorumlayıcı kapanırken çöküyor.
-_NONE_DATA = "__none__"
-
 ENV_LABELS = (("free_space", "Serbest uzay"), ("open_area", "Açık alan"), ("rural", "Kırsal alan"),
               ("urban", "Kentsel alan"), ("dense_urban", "Yoğun kentsel alan"), ("indoor", "Kapalı alan"))
 
@@ -286,7 +282,7 @@ class ConfigForm(QWidget):
         if f.kind == "choice":
             w = QComboBox()
             for value, label in f.choices:
-                w.addItem(label, _NONE_DATA if value is None else value)
+                w.addItem(label, value)
             w.currentIndexChanged.connect(self.changed)
             return w
         if f.kind == "route":
@@ -320,8 +316,7 @@ class ConfigForm(QWidget):
         if f.kind == "bool":
             return w.isChecked()
         if f.kind == "choice":
-            v = w.currentData()
-            return None if v == _NONE_DATA else v
+            return w.currentData()
         if f.kind == "route":
             return _parse_route(w.text())
         if f.optional:
@@ -341,10 +336,9 @@ class ConfigForm(QWidget):
             if f.kind == "bool":
                 w.setChecked(bool(value))
             elif f.kind == "choice":
-                data = _NONE_DATA if value is None else value
-                idx = next((i for i in range(w.count()) if w.itemData(i) == data), -1)
+                idx = next((i for i in range(w.count()) if w.itemData(i) == value), -1)
                 if idx < 0:  # listede olmayan değer (ör. JSON'dan gelen)
-                    w.addItem(str(value), data)
+                    w.addItem(str(value), value)
                     idx = w.count() - 1
                 w.setCurrentIndex(idx)
             elif f.kind == "route":

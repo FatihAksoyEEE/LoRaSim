@@ -86,8 +86,9 @@ def test_form_roundtrip(win):
 
 
 def test_none_choices_do_not_leak_none_refcount(win):
-    # PySide6 (Linux, Python 3.11) boş QComboBox verisini döndürürken None'ın referans sayısını
-    # azaltıyordu; birikince yorumlayıcı kapanışta "none_dealloc" ile çöküyordu.
+    # PySide6 6.12.0 (Linux, Python 3.11) None döndüren her çağrıda None'ın referans sayısını
+    # fazladan azaltıyor; birikince yorumlayıcı kapanışta "none_dealloc" ile çöküyor. Bu sürüm
+    # requirements.txt'te dışlandı; bu test bozuk bir sürüm yeniden girerse yakalar.
     cfg = SimConfig()
     cfg.lora.ldro = None
     cfg.channel.fading = None
