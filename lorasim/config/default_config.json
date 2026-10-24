@@ -1,0 +1,93 @@
+{
+  "lora": {
+    "frequency_mhz": 868.1,
+    "spreading_factor": 7,
+    "bandwidth_khz": 125.0,
+    "coding_rate": 5,
+    "tx_power_dbm": 14.0,
+    "payload_bytes": 20,
+    "crc_enabled": true,
+    "preamble_symbols": 8,
+    "implicit_header": false,
+    "sync_word": 18,
+    "iq_inverted": false,
+    "ldro": null
+  },
+  "radio": {
+    "tx_antenna_gain_dbi": 0.0,
+    "rx_antenna_gain_dbi": 0.0,
+    "tx_losses_db": 0.0,
+    "rx_losses_db": 0.0,
+    "noise_figure_db": 6.0,
+    "sensitivity_override_dbm": null
+  },
+  "channel": {
+    "environment": "free_space",
+    "path_loss_model": "log_distance",
+    "path_loss_exponent": null,
+    "shadowing": "per_link",
+    "shadowing_sigma_db": null,
+    "fading": null,
+    "rician_k_db": null,
+    "awgn_enabled": true,
+    "extra_noise_db": 0.0,
+    "multipath_enabled": false,
+    "time_varying": false,
+    "scatterer_doppler_hz": 0.5,
+    "shadowing_decorrelation_m": 50.0,
+    "doppler_enabled": false,
+    "frequency_offset_enabled": false,
+    "crystal_ppm": 10.0,
+    "interference_enabled": false,
+    "interference_type": "lora",
+    "interference_power_dbm": -115.0,
+    "interference_rate_hz": 0.5,
+    "interference_sf": 7,
+    "interference_duration_s": 0.05,
+    "collisions_enabled": true,
+    "capture_threshold_db": 6.0
+  },
+  "topology": {
+    "mode": "distance",
+    "distance_m": 1000.0,
+    "num_transmitters": 1,
+    "num_receivers": 1,
+    "area_width_m": 2000.0,
+    "area_height_m": 2000.0,
+    "devices": []
+  },
+  "mobility": {
+    "moving": "none",
+    "model": "constant",
+    "speed_mps": 1.4,
+    "heading_deg": 0.0,
+    "random_turn_interval_s": 10.0,
+    "route": [],
+    "route_loop": true,
+    "circle_radius_m": 100.0
+  },
+  "traffic": {
+    "interval_s": 1.0,
+    "max_packets": null,
+    "duration_s": null,
+    "tx_queue_size": 16,
+    "duty_cycle_limit": 0.01,
+    "duty_cycle_policy": "warn",
+    "random_start": true
+  },
+  "ack": {
+    "enabled": true,
+    "max_retries": 3,
+    "timeout_s": null,
+    "turnaround_s": 0.01,
+    "packet_timeout_s": null,
+    "retry_backoff_max_s": 1.0
+  },
+  "run": {
+    "model": "link_level",
+    "mode": "realtime",
+    "speed": 1.0,
+    "seed": null,
+    "max_records": 200000
+  }
+}

@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lorasim"
+version = "0.1.0"
+description = "SX1276 LoRa haberleşme kalitesi simülatörü"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Mehmet Fatih Aksoy" }]
+requires-python = ">=3.11"
+keywords = ["lora", "sx1276", "simulation", "css", "chirp-spread-spectrum", "iot", "wireless"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Communications",
+    "Natural Language :: Turkish",
+]
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "matplotlib>=3.9",
+    "pyqtgraph>=0.13",
+    "PySide6>=6.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+lorasim = "lorasim.cli:main"
+
+[project.gui-scripts]
+lorasim-gui = "lorasim.gui.main_window:main"
+
+[project.urls]
+Homepage = "https://github.com/FatihAksoyEEE/LoRaSim"
+Repository = "https://github.com/FatihAksoyEEE/LoRaSim"
+Issues = "https://github.com/FatihAksoyEEE/LoRaSim/issues"
+
+[tool.setuptools.packages.find]
+include = ["lorasim*"]
+
+[tool.setuptools.package-data]
+lorasim = ["config/*.json"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

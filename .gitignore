@@ -1,0 +1,21 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Test / araç önbellekleri
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Simülasyon çıktıları
+output/
+
+# Editör / işletim sistemi
+.DS_Store
+.idea/
+.vscode/
