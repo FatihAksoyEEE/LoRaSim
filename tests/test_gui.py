@@ -85,6 +85,7 @@ def test_form_roundtrip(win):
     assert win.form.get_config() == cfg
 
 
+@pytest.mark.skipif(sys.version_info >= (3, 12), reason="3.12+'da None ölümsüz; referans sayısı anlamsız")
 def test_none_choices_do_not_leak_none_refcount(win):
     # PySide6 6.12.0 (Linux, Python 3.11) None döndüren her çağrıda None'ın referans sayısını
     # fazladan azaltıyor; birikince yorumlayıcı kapanışta "none_dealloc" ile çöküyor. Bu sürüm
